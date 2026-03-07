@@ -20,5 +20,9 @@ settings.json
 # Portable Python folder
 python64/
 
+# Models (Large files, don't sync to GitHub)
+models/
+copy_models.py
+
 # Logs
 *.log

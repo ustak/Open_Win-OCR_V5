@@ -73,6 +73,30 @@ def _patch_paddlex_dependency_check_for_frozen():
     except Exception:
         pass
 
+
+def _setup_offline_models():
+    """
+    Configure PaddleOCR and PaddleX to use bundled local models when running in
+    PyInstaller frozen mode. This prevents the engine from trying to download
+    models from the network.
+    """
+    if getattr(sys, "frozen", False):
+        meipass = getattr(sys, "_MEIPASS", "")
+        if meipass:
+            models_root = os.path.join(meipass, "models")
+            
+            # For PaddleX: expects models in {PADDLEX_HOME}/official_models
+            paddlex_home = os.path.join(models_root, "paddlex")
+            os.environ["PADDLEX_HOME"] = paddlex_home
+            
+            # For PaddleOCR: expects models in {PADDLE_HOME}/.paddleocr/whl
+            paddle_home = os.path.join(models_root, "paddleocr")
+            os.environ["PADDLE_HOME"] = paddle_home
+            
+            # Optional: ensure Paddle doesn't try to use any other paths
+            # (Paddle often uses ~/.paddle_hook or similar, but PADDLE_HOME is the main one)
+
+
 class OCREngine:
     """ Singleton for PaddleOCR to avoid reloading the model on every inference """
     _instances = {}
@@ -95,6 +119,7 @@ class OCREngine:
     def get_instance(cls, lang="en", use_angle_cls=False, engine_mode="cpu"):
         config_tuple = (lang, use_angle_cls, engine_mode)
         if config_tuple not in cls._instances:
+            _setup_offline_models()
             _patch_paddlex_dependency_check_for_frozen()
             requested_device = "gpu" if engine_mode == "gpu" else "cpu"
             runtime_device = requested_device
