@@ -6,7 +6,7 @@ __pycache__/
 # Distribution / packaging
 build/
 dist/
-*.spec
+# *.spec (Uncomment if you want to ignore build configs)
 
 # Environments
 .env
