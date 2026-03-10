@@ -13,7 +13,11 @@ def _inject_cuda_dll_search_paths():
         meipass = getattr(sys, "_MEIPASS", "")
         if meipass:
             candidate_roots.append(Path(meipass))
-    candidate_roots.append(Path(__file__).resolve().parent)
+    current_file_path = Path(__file__).resolve()
+    # Now in src/win_ocr/core, root is 3 levels up
+    project_root = current_file_path.parents[3] if current_file_path.parts[-4:] == ('src', 'win_ocr', 'core', 'ocr_worker.py') else current_file_path.parent
+    candidate_roots.append(project_root)
+
 
     rel_dirs = [
         Path("nvidia") / "cuda_runtime" / "bin",

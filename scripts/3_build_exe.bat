@@ -40,6 +40,8 @@ echo [信息] 开始针对 V5 引擎打包...
     --copy-metadata "pypdfium2" ^
     --copy-metadata "python-bidi" ^
     --copy-metadata "shapely" ^
+    --paths "src" ^
+    --add-data "models;models" ^
     --add-data "python64\Lib\site-packages\paddle\libs;paddle\libs" ^
     --add-binary "python64\Lib\site-packages\nvidia\cuda_runtime\bin\*.dll;nvidia\cuda_runtime\bin" ^
     --add-binary "python64\Lib\site-packages\nvidia\cudnn\bin\*.dll;nvidia\cudnn\bin" ^
@@ -52,6 +54,7 @@ echo [信息] 开始针对 V5 引擎打包...
     --hidden-import "framework_pb2" ^
     --exclude-module "paddle.tensorrt" ^
     main.py
+
 
 if %ERRORLEVEL% EQU 0 (
     echo.

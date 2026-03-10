@@ -2,7 +2,7 @@
 from PyInstaller.utils.hooks import collect_all
 from PyInstaller.utils.hooks import copy_metadata
 
-datas = [('python64\\Lib\\site-packages\\paddle\\libs', 'paddle\\libs'), ('models', 'models')]
+datas = [('python64\\Lib\\site-packages\\paddle\\libs', 'paddle\\libs')]
 binaries = [('python64\\Lib\\site-packages\\nvidia\\cuda_runtime\\bin\\*.dll', 'nvidia\\cuda_runtime\\bin'), ('python64\\Lib\\site-packages\\nvidia\\cudnn\\bin\\*.dll', 'nvidia\\cudnn\\bin'), ('python64\\Lib\\site-packages\\nvidia\\cublas\\bin\\*.dll', 'nvidia\\cublas\\bin'), ('python64\\Lib\\site-packages\\nvidia\\cufft\\bin\\*.dll', 'nvidia\\cufft\\bin'), ('python64\\Lib\\site-packages\\nvidia\\curand\\bin\\*.dll', 'nvidia\\curand\\bin'), ('python64\\Lib\\site-packages\\nvidia\\cusolver\\bin\\*.dll', 'nvidia\\cusolver\\bin'), ('python64\\Lib\\site-packages\\nvidia\\cusparse\\bin\\*.dll', 'nvidia\\cusparse\\bin'), ('python64\\Lib\\site-packages\\nvidia\\nvjitlink\\bin\\*.dll', 'nvidia\\nvjitlink\\bin')]
 hiddenimports = ['framework_pb2']
 datas += copy_metadata('paddlex')
